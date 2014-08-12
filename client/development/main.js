@@ -1,1 +1,1 @@
-var MainApp =
+var MainApp = new WBApp();

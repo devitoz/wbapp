@@ -1,0 +1,1 @@
+WBApp = function () {};
