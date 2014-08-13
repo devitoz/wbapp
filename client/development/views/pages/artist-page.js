@@ -1,4 +1,4 @@
-wbDefine('Views:Pages:ArtistPage', function (app) {
+wbappDefine('Views:Pages:ArtistPage', function (app) {
 	this.use('Models:Profile');
 	this.use('Views:Common:Base');
 	this.configure({

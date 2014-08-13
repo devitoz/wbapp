@@ -1,1 +1,1 @@
-var MainApp = new WBApp();
+var MainApp = new wbapp();
