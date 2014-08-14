@@ -18,19 +18,27 @@
 
 	var wbModuleController = function(mainApp){
 		app = mainApp;
+		this.modules = {};
 		this.init();
 	};
 	extend(wbModuleController.prototype, {
 		define: function (module, fn) {
-			debugger;
 			this.modules[module] = new Module(fn);
 			console.log(module + ' defined...');
 		},
-		init: function () {
-			console.log('module controller initialized...');
-		}
 
+		init: function () {
+			window.wbappDefine = this.define.bind(this);
+			console.log('module controller initialized...');
+		},
+
+		//requirejs wrapper
+		require: function (modules, cbk, err) {
+			for (var i = 0; i < modules.length; i++) {
+				modules[i] = app.transformToPath(modules[i]);
+			}
+			require(modules, cbk, err);
+		}
 	});
 	window.wbappModuleController = wbModuleController;
-	window.wbappDefine = wbModuleController.prototype.define;
 })();

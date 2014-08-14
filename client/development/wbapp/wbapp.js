@@ -5,12 +5,6 @@
 	};
 
 	extend(app.prototype,{
-		init: function () {
-			this.Modules = new wbappModuleController(this);
-			this.requireConfig();
-			this.loadCoreMods();
-		},
-
 		requireConfig: function () {
 			requirejs.config({
 				baseUrl: '/',
@@ -22,12 +16,32 @@
 			return this;
 		},
 
+		init: function () {
+			this.Modules = new wbappModuleController(this);
+			this.requireConfig();
+			this.loadCoreMods();
+		},
+
 		loadCoreMods: function () {
-			require(['wbapp/pages/artist-page', 'views/common/base'], function () {
-				console.log('core mods loaded...');
-			}, function (err) {
-				console.log(err.message);
-			});
+			this.Modules.require(
+				[
+					'wbapp:Models',
+					'wbapp:Templates'
+				],
+				this.onCoreLoaded,
+				function (err) {
+					console.log(err.message);
+				}
+			);
+		},
+
+		onCoreLoaded: function () {
+			console.log('core loaded...');
+		},
+
+		//Transform CamelCase:With:Colons to camel-case/with/colons
+		transformToPath: function (moduleName) {
+			return moduleName.split(/(?=[A-Z])/).join('-').toLowerCase().split(':-').join('/');
 		}
 	});
 
