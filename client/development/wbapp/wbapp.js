@@ -23,8 +23,10 @@
 		},
 
 		loadCoreMods: function () {
-			require(['views/common/base'], function () {
+			require(['wbapp/pages/artist-page', 'views/common/base'], function () {
 				console.log('core mods loaded...');
+			}, function (err) {
+				console.log(err.message);
 			});
 		}
 	});
