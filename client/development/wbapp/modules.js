@@ -1,6 +1,8 @@
 (function () {
 	var app;
 	var extend = _.extend;
+
+	//------- Module API
 	var Module = function (fn) {
 		this.modules = {};
 	  this.fn = fn;
@@ -16,12 +18,13 @@
 	});
 
 
-	var wbModuleController = function(mainApp){
+	//--------- Controller API
+	var Controller = function(mainApp){
 		app = mainApp;
 		this.modules = {};
 		this.init();
 	};
-	extend(wbModuleController.prototype, {
+	extend(Controller.prototype, {
 		define: function (module, fn) {
 			this.modules[module] = new Module(fn);
 			console.log(module + ' defined...');
@@ -40,5 +43,5 @@
 			require(modules, cbk, err);
 		}
 	});
-	window.wbappModuleController = wbModuleController;
+	window.WBAppModuleController = Controller;
 })();
